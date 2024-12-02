@@ -5,6 +5,7 @@ const app = express();
 
 app.use((request: Request, response: Response, next: NextFunction) => {
   response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Methods", "GET, POST");
   next();
 });
 app.use(cors());
@@ -23,10 +24,8 @@ app.get("/getAlertStatus", (request: Request, response: Response) => {
 });
 
 app.post("/postAlertState", (request: Request, response: Response) => {
-  const { isAlert } = request.body;
-
   alertData = {
-    isAlert,
+    isAlert: !alertData.isAlert,
   };
 
   response.status(200).send("ok");
